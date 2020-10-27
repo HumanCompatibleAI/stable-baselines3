@@ -64,7 +64,7 @@ class VecFrameStack(VecEnvWrapper):
         """
         obs: np.ndarray = self.venv.reset()  # pytype:disable=annotation-type-mismatch
         self.stackedobs[...] = 0
-        stack_ax_size = obs.shape[-1]
+        stack_ax_size = obs.shape[self.dim_batch]
         # this slice expression selects only the final observation
         insert_slice = (np.s_[:],) * self.dim_batch + (np.s_[-stack_ax_size:],)
         self.stackedobs[insert_slice] = obs
